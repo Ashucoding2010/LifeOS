@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080b12"><meta name="description" content="LifeOS — a cyberpunk real-life RPG progression system.">
+  <title>LifeOS // Cybernetic Progression</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="app-shell">
+  <header class="topbar"><a class="brand" href="#homeSection"><span class="brand-mark">L</span><span>LIFE<span class="muted">OS</span></span></a><div class="top-actions"><span class="date-label" id="todayLabel"></span><button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button></div></header>
+  <main>
+    <section class="welcome-row" id="homeSection"><div><p class="eyebrow">PERSONAL OPERATING SYSTEM // V0.2</p><h1>EVOLVE <span class="accent">BEYOND.</span></h1><p class="subtext">Your life. Your stats. Your next evolution.</p></div><div class="rank-chip"><span class="pulse"></span><span id="rankChipText">INITIATE // SYSTEM ACTIVE</span></div></section>
+    <section class="profile-card panel"><div class="profile-top"><div class="avatar">A</div><div class="profile-info"><div class="eyebrow">NEURAL IDENTITY</div><h2 id="playerName">PLAYER ONE</h2><p><span id="rankName">INITIATE</span> <span class="dot">//</span> LEVEL <strong id="level">1</strong></p></div><div class="level-badge"><span>LVL</span><strong id="levelBadge">01</strong></div></div><div class="xp-line"><span>EXPERIENCE CORE</span><span id="xpText">0 / 150 XP</span></div><div class="progress-track"><div class="progress-fill" id="xpBar"></div></div><div class="profile-bottom"><span id="totalXp">0 TOTAL XP</span><span id="nextLevel">150 XP TO NEXT LEVEL</span></div></section>
+    <section class="stats-grid"><article class="stat-card panel"><span class="stat-icon">⚡</span><span class="stat-label">TODAY'S XP</span><strong id="todayXp">0</strong><small>earned today</small></article><article class="stat-card panel"><span class="stat-icon">✓</span><span class="stat-label">QUESTS DONE</span><strong id="questsDone">0</strong><small>today</small></article><article class="stat-card panel"><span class="stat-icon">◈</span><span class="stat-label">ACTIVE QUESTS</span><strong id="activeQuests">0</strong><small>in your queue</small></article></section>
+
+    <section class="section-heading" id="questsSection"><div><p class="eyebrow">MISSION CONTROL // 01</p><h2>Today's operations</h2></div><button class="text-btn" id="addQuestTop">＋ New quest</button></section>
+    <section class="quest-panel panel"><div class="quest-progress-head"><span id="questProgressLabel">0 OF 0 COMPLETED</span><span id="questProgressPct">0%</span></div><div class="progress-track slim"><div class="progress-fill" id="questBar"></div></div><div id="questList" class="quest-list"></div><div class="empty-state" id="emptyState"><span>⌁</span><strong>No active operations.</strong><p>Create a mission. Complete it. Earn your upgrade.</p></div></section>
+
+    <section class="section-heading attributes-heading" id="characterSection"><div><p class="eyebrow">CHARACTER DEVELOPMENT // 02</p><h2>Attribute matrix</h2></div><span class="tiny-note">XP → ATTRIBUTE LEVEL</span></section>
+    <section class="attributes panel" id="attributes"></section>
+
+    <section class="section-heading ranks-heading"><div><p class="eyebrow">CLEARANCE PROTOCOL // 03</p><h2>Rank progression</h2></div><span class="tiny-note">HARDCORE LADDER</span></section>
+    <section class="rank-ladder panel" id="rankLadder"></section>
+
+    <section class="section-heading achievements-heading"><div><p class="eyebrow">PROOF OF PROGRESS // 04</p><h2>Achievements</h2></div><span class="tiny-note" id="achievementCount">0 / 7 UNLOCKED</span></section>
+    <section class="achievement-grid" id="achievementGrid"></section>
+
+    <section class="section-heading rewards-heading" id="rewardsSection"><div><p class="eyebrow">REWARD VAULT // 05</p><h2>Unlocks & rewards</h2></div><button class="text-btn" id="addRewardBtn">＋ Add real-life reward</button></section>
+    <section class="reward-list" id="rewardList"></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Main navigation"><a class="nav-item active" href="#homeSection" data-tab="home"><span>⌂</span>Home</a><a class="nav-item" href="#questsSection" data-tab="quests"><span>⚔</span>Quests</a><a class="nav-item" href="#characterSection" data-tab="character"><span>◉</span>Character</a><a class="nav-item" href="#rewardsSection" data-tab="rewards"><span>✧</span>Rewards</a></nav>
+</div>
+
+<dialog id="questDialog" class="modal"><form id="questForm" method="dialog"><div class="modal-head"><div><p class="eyebrow">NEW OPERATION</p><h2>Deploy a quest</h2></div><button type="button" class="icon-btn" id="closeDialog" aria-label="Close">×</button></div><label for="questTitle">Mission name</label><input id="questTitle" maxlength="70" placeholder="e.g. Complete Physics DPP" required><div class="form-row"><div><label for="questCategory">Attribute</label><select id="questCategory"><option value="intelligence">Intelligence</option><option value="strength">Strength</option><option value="discipline">Discipline</option><option value="creativity">Creativity</option><option value="agility">Agility</option></select></div><div><label for="questXp">Difficulty / XP</label><select id="questXp"><option value="10">10 XP · Routine</option><option value="20" selected>20 XP · Standard</option><option value="35">35 XP · Hard</option><option value="50">50 XP · Critical</option></select></div></div><p class="form-hint">Hardcore protocol: XP requirements increase with every level. Choose difficulty honestly—progress is earned, not farmed.</p><button class="primary-btn" type="submit">Add to mission queue <span>→</span></button></form></dialog>
+
+<dialog id="rewardDialog" class="modal"><form id="rewardForm" method="dialog"><div class="modal-head"><div><p class="eyebrow">CUSTOM REWARD</p><h2>Set a real-life unlock</h2></div><button type="button" class="icon-btn" id="closeReward" aria-label="Close">×</button></div><label for="rewardTitle">Reward name</label><input id="rewardTitle" maxlength="45" placeholder="e.g. Movie night" required><label for="rewardDesc">What will you unlock?</label><input id="rewardDesc" maxlength="120" placeholder="A relaxed movie night after reaching the milestone" required><label for="rewardLevel">Unlock at player level</label><input id="rewardLevel" type="number" min="2" max="100" value="5" required><p class="form-hint">Choose something healthy, realistic and within your own limits. LifeOS tracks the milestone; you decide when and how to enjoy it.</p><button class="primary-btn" type="submit">Save to reward vault <span>→</span></button></form></dialog>
+
+<dialog id="infoDialog" class="modal"><div class="modal-head"><div><p class="eyebrow">LIFEOS V0.2</p><h2>System settings</h2></div><button class="icon-btn" id="closeInfo" aria-label="Close">×</button></div><p class="subtext">Progress is saved in this browser on this device. Cloud sync and accounts are planned for a later version.</p><label for="nameInput">Player identity</label><input id="nameInput" maxlength="24" placeholder="PLAYER ONE"><button class="primary-btn" id="saveName">Save identity</button><button class="danger-btn" id="resetData">Reset all local progress</button></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div><script src="app.js"></script>
+</body></html>
